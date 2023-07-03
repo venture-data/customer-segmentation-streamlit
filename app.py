@@ -3,8 +3,6 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-import matplotlib.cm as cm
-import numpy as np
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 from sklearn.datasets import make_blobs
@@ -12,7 +10,7 @@ from sklearn.datasets import make_blobs
 # Creating the Streamlit app
 def main():
     st.title("Customer Segmentation App")
-    #st.write("This app performs customer segmentation using K-means clustering.")
+    st.write("This app performs customer segmentation using K-means clustering.")
 
     # Generate dummy data
     num_samples = 500
@@ -43,15 +41,11 @@ def main():
 
     # Display the results
     st.write("Customer Segmentation Results:")
-    st.dataframe(df.style.highlight_max(axis=0))
-
-    # Generate distinct colors for each cluster
-    colors = cm.get_cmap('tab10', num_clusters)
+    st.dataframe(df)
 
     # Scatter plot
     fig = px.scatter(
-        df, x="Feature 1", y="Feature 2", color="Cluster", color_discrete_sequence=colors.colors,
-        title="Customer Segmentation"
+        df, x="Feature 1", y="Feature 2", color="Cluster", title="Customer Segmentation"
     )
     st.plotly_chart(fig)
 
@@ -66,7 +60,6 @@ def main():
         y="Feature 2",
         z="Feature 3",
         color="Cluster",
-        color_discrete_sequence=colors.colors,
         title="Customer Segmentation (3D)",
     )
     fig.update_layout(scene=dict(xaxis_title="Feature 1", yaxis_title="Feature 2", zaxis_title="Feature 3"))
@@ -87,7 +80,6 @@ def main():
             theta=df.columns[:-1],
             fill="toself",
             name=f"Cluster {cluster}",
-            line_color=colors(cluster),
         ))
     fig.update_layout(
         polar=dict(

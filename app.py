@@ -2,6 +2,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 from sklearn.datasets import make_blobs
@@ -50,6 +51,43 @@ def main():
 
     # Box plot
     fig = px.box(df, x="Cluster", y="Feature 3", title="Feature 3 Distribution by Cluster")
+    st.plotly_chart(fig)
+
+    # 3D Scatter plot
+    fig = px.scatter_3d(
+        df,
+        x="Feature 1",
+        y="Feature 2",
+        z="Feature 3",
+        color="Cluster",
+        title="Customer Segmentation (3D)",
+    )
+    fig.update_layout(scene=dict(xaxis_title="Feature 1", yaxis_title="Feature 2", zaxis_title="Feature 3"))
+    st.plotly_chart(fig)
+
+    # Bar chart
+    cluster_counts = df["Cluster"].value_counts().reset_index()
+    cluster_counts.columns = ["Cluster", "Count"]
+    fig = px.bar(cluster_counts, x="Cluster", y="Count", title="Cluster Size")
+    st.plotly_chart(fig)
+
+    # Radar chart
+    feature_means = df.groupby("Cluster").mean().reset_index()
+    fig = go.Figure()
+    for cluster in feature_means["Cluster"]:
+        fig.add_trace(go.Scatterpolar(
+            r=feature_means.loc[feature_means["Cluster"] == cluster, df.columns[:-1]].values.flatten(),
+            theta=df.columns[:-1],
+            fill="toself",
+            name=f"Cluster {cluster}",
+        ))
+    fig.update_layout(
+        polar=dict(
+            radialaxis=dict(visible=True, range=[-2, 2]),
+        ),
+        showlegend=True,
+        title="Cluster Feature Comparison"
+    )
     st.plotly_chart(fig)
 
 if __name__ == "__main__":

@@ -9,8 +9,8 @@ from sklearn.datasets import make_blobs
 
 # Creating the Streamlit app
 def main():
-    st.title("Customer Segmentation App (Clustering)")
-    #st.write("This app performs customer segmentation using K-means clustering.")
+    st.title("Customer Segmentation App")
+    st.write("This app performs customer segmentation using K-means clustering.")
 
     # Generate dummy data
     num_samples = 500
@@ -41,7 +41,7 @@ def main():
 
     # Display the results
     st.write("Customer Segmentation Results:")
-    st.dataframe(df)
+    st.dataframe(df.style.highlight_max(axis=0))
 
     # Scatter plot
     fig = px.scatter(

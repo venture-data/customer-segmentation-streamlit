@@ -1,6 +1,7 @@
 # Importing the necessary libraries
 import streamlit as st
 import pandas as pd
+import plotly.express as px
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 from sklearn.datasets import make_blobs
@@ -40,6 +41,16 @@ def main():
     # Display the results
     st.write("Customer Segmentation Results:")
     st.dataframe(df)
+
+    # Scatter plot
+    fig = px.scatter(
+        df, x="Feature 1", y="Feature 2", color="Cluster", title="Customer Segmentation"
+    )
+    st.plotly_chart(fig)
+
+    # Box plot
+    fig = px.box(df, x="Cluster", y="Feature 3", title="Feature 3 Distribution by Cluster")
+    st.plotly_chart(fig)
 
 if __name__ == "__main__":
     main()

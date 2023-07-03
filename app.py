@@ -9,8 +9,8 @@ from sklearn.datasets import make_blobs
 
 # Creating the Streamlit app
 def main():
-    st.title("Customer Segmentation App")
-    st.write("This app performs customer segmentation using K-means clustering.")
+    st.title("Customer Segmentation App (Clustering)")
+    #st.write("This app performs customer segmentation using K-means clustering.")
 
     # Generate dummy data
     num_samples = 500

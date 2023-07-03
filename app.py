@@ -41,7 +41,7 @@ def main():
 
     # Display the results
     st.write("Customer Segmentation Results:")
-    st.dataframe(df.style.highlight_max(axis=0))
+    st.dataframe(df)
 
     # Scatter plot
     fig = px.scatter(

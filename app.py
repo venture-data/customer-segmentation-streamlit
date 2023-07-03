@@ -39,15 +39,16 @@ def main():
     kmeans.fit(scaled_data)
     df['Cluster'] = kmeans.labels_
 
-    # Display the results
-    st.write("Customer Segmentation Results:")
-    st.dataframe(df)
 
     # Scatter plot
     fig = px.scatter(
         df, x="Feature 1", y="Feature 2", color="Cluster", title="Customer Segmentation"
     )
     st.plotly_chart(fig)
+
+    # Display the results
+    st.write("Customer Segmentation Results:")
+    st.dataframe(df)
 
     # Box plot
     fig = px.box(df, x="Cluster", y="Feature 3", title="Feature 3 Distribution by Cluster")
